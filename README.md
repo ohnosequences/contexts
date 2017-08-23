@@ -13,10 +13,10 @@ and this will be rewritten to
 
 ``` scala
 {
-  val local_0 = x
-  val local_1 = y
-  import local_0._
-  import local_1._
+  val inside_local_0 = x
+  val inside_local_1 = y
+  import inside_local_0._
+  import inside_local_1._
 
   // arbitrary code
 }
