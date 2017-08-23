@@ -1,5 +1,4 @@
 <plugin>
-  <name>local-implicits</name>
-  <classname>com.github.mpilquist.locals.LocalImplicitsPlugin</classname>
+  <name>local-imports</name>
+  <classname>ohnosequences.scalac.LocalImportsPlugin</classname>
 </plugin>
-

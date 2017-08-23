@@ -1,51 +1,35 @@
-# Local Implicits
+# Local Imports
 
-This project contains a Scala compiler plugin which adds support for locally scoped implicit values.
+A Scala **2.12.x** compiler plugin for locally scoped imports. You can write
 
-For example:
+``` scala
+inside(x,y) {
 
-```scala
-imply("Hello, world!") { implicitly[String] }
-```
-
-expands to:
-
-```scala
-{
-  implicit val implied$0 = "Hello, world!"
-  implicitly[String]
+  // arbitrary code
 }
 ```
 
-which at runtime, evaluates to `"Hello, world!"`.
+and this will be rewritten to
 
-The `imply` method takes two parameter lists -- the first parameter list contains 1 or more values to declare in a local implicit scope, and the second parameter list contains a block to evaluate in context of the local implicit scope.
+``` scala
+{
+  val local_0 = x
+  val local_1 = y
+  import local_0._
+  import local_1._
 
-## Motivation
-
-Defining implicits in local scope with vanilla Scala is problematic for a number of reasons.
-
- - In some cases, opening a new block requires either a semi-colon on the line before the start
-   of the block, or an empty line before the start of the block.
- - Arbitrary names have to be assigned to each implicit.
- - The resulting code is rather verbose considering its function.
-
-The `imply` method is particularly useful when working with type class instances that have multiple lawful implementations. For example, consider some monoid instances for `Int`:
-
-```scala
-2 |+| 3                              // 5
-imply(intMultiplication) { 2 |+| 3 } // 6
-imply(minMonoid) { 2 |+| 3 }         // 2
-imply(maxMonoid) { 2 |+| 3 }         // 3
+  // arbitrary code
+}
 ```
 
 ## Usage
 
-This plugin currently supports Scala 2.10 and 2.11.
-
-To use this plugin with SBT, add the following to build.sbt:
+Add to your build
 
 ```scala
-addCompilerPlugin("com.github.mpilquist" %% "local-implicits" % "0.3.0")
+addCompilerPlugin("ohnosequences" %% "local-imports" % version)
 ```
 
+## Credits
+
+This plugin is a simple modification of [mpilquist/local-implicits](https://github.com/mpilquist/local-implicits).
