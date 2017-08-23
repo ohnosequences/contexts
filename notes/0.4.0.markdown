@@ -1,0 +1,24 @@
+This is the first release of local-imports, a `scalac` plugin providing compact syntax for locally importing the contents of values.
+
+Example use:
+
+``` scala
+object T {
+
+  type X = String
+  val x: X = "hola!"
+}
+
+// this will be "hola!"
+val z = inside(T1) { x } 
+
+// it will get rewritten to
+val z = {
+  val inside_local_0 = T1
+  import inside_local_0._
+  x
+}
+```
+
+The plugin code is based on [mpilquist/local-implicits](https://github.com/mpilquist/local-implicits); what it actually does is of course completely different, even if both plugins can be used for similar purposes.
+
