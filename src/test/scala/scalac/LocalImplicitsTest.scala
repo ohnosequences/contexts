@@ -34,6 +34,27 @@ class LocalImports extends WordSpec with Matchers {
 
   "inside" should {
 
+    "be usable infix as 'x ⊢ y'" in {
+
+      val result =
+        T1 ⊢ { x }
+
+      val u1 = result shouldBe "hola"
+    }
+
+    "support nested usage" in {
+
+      val result =
+        T1 ⊢ {
+          val u = x
+          T2 ⊢ {
+            s"${u} ${x.toString}"
+          }
+        }
+
+      val u1 = result shouldBe "hola 2"
+    }
+
     "be able to use object type members and vals" in {
 
       val result =
