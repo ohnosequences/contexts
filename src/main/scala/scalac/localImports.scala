@@ -24,8 +24,8 @@ class AddValsAndImport(plugin: Plugin, val global: Global) extends PluginCompone
   val phaseName =
     "local-imports"
 
-  val insideName =
-    TermName("inside")
+  val ⊢ : String =
+    "$u22A2"
 
   final
   def newTransformer(unit: CompilationUnit): Transformer =
@@ -35,16 +35,9 @@ class AddValsAndImport(plugin: Plugin, val global: Global) extends PluginCompone
       def transform(tree: Tree): Tree =
         tree match {
 
-          // allow infix usage
-          case Apply(Apply(Ident(insideName), valsValues), blocks) =>
+          case Apply(Select(valValue, TermName(⊢)), blocks) =>
             blocks.headOption
-              .fold(super.transform(tree)){
-                block => super.transform(addValsAndImportTo(valsValues, block))
-              }
-
-          case Apply(Select(valValue, TermName("$u22A2")), blocks) =>
-            blocks.headOption
-              .fold(super.transform(tree)){
+              .fold(super.transform(tree)) {
                 block => super.transform(addValsAndImportTo(List(valValue), block))
               }
 
