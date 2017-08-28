@@ -1,4 +1,4 @@
 <plugin>
   <name>local-imports</name>
-  <classname>ohnosequences.scalac.LocalImportsPlugin</classname>
+  <classname>ohnosequences.scalac.ContextsPlugin</classname>
 </plugin>

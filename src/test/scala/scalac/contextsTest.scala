@@ -30,7 +30,7 @@ object context {
   }
 }
 
-class LocalImports extends WordSpec with Matchers {
+class Contexts extends WordSpec with Matchers {
 
   "⊢" should {
 

@@ -1,7 +1,7 @@
 
-name          := "local-imports"
+name          := "contexts"
 organization  := "ohnosequences"
-description   := "A compiler plugin providing syntax for local imports"
+description   := "A Scala compiler plugin providing syntax for contexts `x ⊢ { ... }`"
 bucketSuffix  := "era7.com"
 scalaVersion  := "2.12.3"
 
