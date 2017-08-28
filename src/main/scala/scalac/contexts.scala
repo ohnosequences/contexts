@@ -8,9 +8,9 @@ import nsc.symtab.Flags._
 import nsc.ast.TreeDSL
 
 final
-class LocalImportsPlugin(val global: Global) extends Plugin {
-  val name        = "local-import"
-  val description = "Provides syntax for automatic local val and import"
+class ContextsPlugin(val global: Global) extends Plugin {
+  val name        = "contexts"
+  val description = "Provides syntax for contexts `x ⊢ { ... }`"
   val components  = new AddValsAndImport(this, global) :: Nil
 }
 
