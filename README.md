@@ -1,12 +1,9 @@
-# Local Imports
+# Contexts
 
-A Scala **2.12.x** compiler plugin for locally scoped imports. You can write
+A Scala **2.12.x** compiler plugin for contexts. You can write
 
 ``` scala
-inside(x,y) {
-
-  // arbitrary code
-}
+x ⊢ { // arbitrary code }
 ```
 
 and this will be rewritten to
@@ -14,10 +11,7 @@ and this will be rewritten to
 ``` scala
 {
   val inside_local_0 = x
-  val inside_local_1 = y
   import inside_local_0._
-  import inside_local_1._
-
   // arbitrary code
 }
 ```
@@ -27,7 +21,7 @@ and this will be rewritten to
 Add to your build
 
 ```scala
-addCompilerPlugin("ohnosequences" %% "local-imports" % version)
+addCompilerPlugin("ohnosequences" %% "contexts" % version)
 ```
 
 ## Credits
