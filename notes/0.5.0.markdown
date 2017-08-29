@@ -1,0 +1,1 @@
+This release renames the plugin to "contexts", and switches to the syntax `x ⊢ { ... }`. Note that support for contexts with several arguments has been dropped. 
