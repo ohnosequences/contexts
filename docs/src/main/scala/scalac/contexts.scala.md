@@ -10,9 +10,9 @@ import nsc.symtab.Flags._
 import nsc.ast.TreeDSL
 
 final
-class LocalImportsPlugin(val global: Global) extends Plugin {
-  val name        = "local-import"
-  val description = "Provides syntax for automatic local val and import"
+class ContextsPlugin(val global: Global) extends Plugin {
+  val name        = "contexts"
+  val description = "Provides syntax for contexts `x ⊢ { ... }`"
   val components  = new AddValsAndImport(this, global) :: Nil
 }
 
@@ -25,8 +25,9 @@ class AddValsAndImport(plugin: Plugin, val global: Global) extends PluginCompone
     "parser" :: Nil
   val phaseName =
     "local-imports"
-  val insideName =
-    TermName("inside")
+
+  val ⊢ : String =
+    "$u22A2"
 
   final
   def newTransformer(unit: CompilationUnit): Transformer =
@@ -36,10 +37,10 @@ class AddValsAndImport(plugin: Plugin, val global: Global) extends PluginCompone
       def transform(tree: Tree): Tree =
         tree match {
 
-          case Apply(Apply(Ident(insideName), valsValues), blocks) =>
+          case Apply(Select(valValue, TermName(⊢)), blocks) =>
             blocks.headOption
-              .fold(super.transform(tree)){
-                block => super.transform(addValsAndImportTo(valsValues, block))
+              .fold(super.transform(tree)) {
+                block => super.transform(addValsAndImportTo(List(valValue), block))
               }
 
           case other =>
@@ -73,5 +74,5 @@ class AddValsAndImport(plugin: Plugin, val global: Global) extends PluginCompone
 
 
 
-[test/scala/scalac/LocalImplicitsTest.scala]: ../../../test/scala/scalac/LocalImplicitsTest.scala.md
-[main/scala/scalac/localImports.scala]: localImports.scala.md
+[test/scala/scalac/contextsTest.scala]: ../../../test/scala/scalac/contextsTest.scala.md
+[main/scala/scalac/contexts.scala]: contexts.scala.md
